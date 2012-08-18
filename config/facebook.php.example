@@ -1,0 +1,6 @@
+<?php
+
+return new Facebook(array(
+	'appId' => 'Your App ID',
+	'secret' => 'Your App Secret'
+));

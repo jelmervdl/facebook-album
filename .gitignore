@@ -1,0 +1,4 @@
+# Ignore files that contain confidential information.
+# For these files, .example files should exist.
+config/facebook.php
+config/pdo.php
