@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Albums</title>
+	</head>
+	<body>
+		<ul>
+		<?php foreach ($facebook_albums as $album): ?>
+			<?php if (isset($shared_albums[$album->id()])):
+				$share = $shared_albums[$album->id()]; ?>
+			<li>
+				<h3><a href="<?=$share->url()?>"><?=_html($album->name())?></a></h3>
+				<input type="text" value="<?=$share->url()?>" readonly>
+				<form method="post" action="revoke-album.php">
+					<input type="hidden" name="token" value="<?=$album->id()?>">
+					<button type="submit">Stop met delen</button>
+				</form>
+			</li>
+			<?php else: ?>
+			<li>
+				<h3><?=_html($album->name())?></h3>
+				<form method="post" action="create-album.php">
+					<input type="hidden" name="album_id" value="<?=$album->id()?>">
+					<button type="submit">Deel</button>
+				</form>
+			</li>
+			<?php endif ?>
+		<?php endforeach ?>
+		</ul>
+
+		<script>
+		Array.prototype.forEach.call(
+			document.getElementsByTagName('input'),
+			function(input) {
+				if (input.type == 'text')
+					input.onclick = function(e) {
+						e.preventDefault();
+						this.select();
+					};
+			});
+		</script>
+	</body>
+</html>

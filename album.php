@@ -4,28 +4,28 @@ require 'config/bootstrap.php';
 
 $token = Token::getById($pdo, $_GET['token']);
 
-if ($token->isRevoked())
+if (!$token || $token->isRevoked())
 {
 	header('Status: 404 Not Found');
-	echo "Dit album wordt niet langer gedeeld.";
+	echo "Dit album wordt niet (langer) gedeeld.";
 	exit;
 }
 
 $facebook->setAccessToken($token->accessToken());
 
-$album = fb_get_album($token->albumId());
+$album = $facebook->getAlbum($token->albumId());
 
-$photos = fb_list_photos($token->albumId());
+$photos = $album->listPhotos();
 
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><?=_html($album['name'])?></title>
+		<title><?=_html($album->name())?></title>
 		<link rel="stylesheet" href="album.css">
 	</head>
 	<body>
-		<h1><?=_html($album['name'])?></h1>
+		<h1><?=_html($album->name())?></h1>
 		<ol>
 		<?php foreach ($photos as $photo): ?>
 		<?php printf('
@@ -37,9 +37,9 @@ $photos = fb_list_photos($token->albumId());
 					</figure>
 				</a>
 			</li>',
-				_attr($photo['src_big']), _attr($photo['src_big_width']), _attr($photo['src_big_height']),
-				_attr($photo['src_small']), _attr($photo['src_small_width']), _attr($photo['src_small_height']),
-				_html($photo['caption'])); ?>
+				_attr($photo->large()->src()), $photo->large()->width(), $photo->large()->height(),
+				_attr($photo->small()->src()), $photo->small()->width(), $photo->small()->height(),
+				_html($photo->caption())); ?>
 		<?php endforeach ?>
 		</ol>
 		<script>

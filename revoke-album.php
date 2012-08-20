@@ -2,7 +2,7 @@
 
 require 'config/bootstrap.php';
 
-if (!fb_is_logged_in() || !isset($_POST['token']))
+if (!$facebook->isLoggedIn() || !isset($_POST['token']))
 {
 	header('Location: index.php');
 	exit;
