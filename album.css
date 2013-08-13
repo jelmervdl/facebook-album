@@ -11,7 +11,7 @@ ol, figure {
 }
 
 .photo {
-	display: block;
+display: block;
 	float: left;
 	overflow: hidden;
 }
@@ -19,19 +19,6 @@ ol, figure {
 .photo figure {
 	margin: 2px;
 }
-
-/*.photo {
-	display: block;
-	float: left;
-
-	width: 75px;
-	height: 50px;
-	margin: 15px;
-	
-	padding: 0;
-	
-	overflow: hidden;
-}*/
 
 .photo figcaption {
 	display: none;
@@ -41,16 +28,14 @@ ol, figure {
 	position: fixed;
 	top: 0;
 	left: 0;
+	bottom: 0;
+	right: 0;
 
 	margin: 0;
-
-	width: 100%;
-	height: 100%;
+	padding: 0;
 
 	text-align: center;
-
 	background: rgba(0, 0, 0, 0.8);
-
 	display: none;
 }
 
@@ -58,15 +43,43 @@ ol, figure {
 	display: block;
 }
 
-#overlay img {
-	margin: 20px;
+#overlay .full-size,
+#overlay .background {
+	position: absolute;
+}
+
+#overlay .background {
+	filter: blur(40px);
+	background-size: cover;
+	min-width: 100%;
+	min-height: 100%;
+	display: none;
+}
+
+#overlay .full-size {
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+	left: 0;
+	right: 0;
+}
+
+#overlay.vertical .background {
+	left: 0;
+	right: 0;
+}
+
+#overlay.horizontal .background {
+	top: 0;
+	bottom: 0;
 }
 
 #overlay figcaption {
-	position: fixed;
+	position: absolute;
 	bottom: 0;
+	left: 0;
+	right: 0;
 
-	width: 100%;
 	font-size: 16px;
 	line-height: 32px;
 
@@ -74,15 +87,28 @@ ol, figure {
 	color: white;
 }
 
-#next-button {
-	position: fixed;
-	top: 10px;
-	right: 10px;
+#overlay .prev-button,
+#overlay .next-button {
+	position: absolute;
+	top: 0;
+	width: 10%;
+	height: 100%;
+	border: none;
+	background: transparent;
+	color: white;
 }
 
-#prev-button {
-	position: fixed;
-	top: 10px;
-	left: 10px;
+#overlay .next-button:hover,
+#overlay .prev-button:hover {
+	background: black;
 }
 
+#overlay .next-button {
+	right: 0;
+	text-align: right;
+}
+
+#overlay .prev-button {
+	left: 0;
+	text-align: left;
+}
