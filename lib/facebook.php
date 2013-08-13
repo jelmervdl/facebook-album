@@ -45,7 +45,8 @@ class FacebookWrapper extends Facebook
 	{
 		$photos = $this->api(array(
 			'method' => 'fql.query',
-			'query' => sprintf('SELECT pid, src_small, src_small_width, src_small_height, src_big, src_big_width, src_big_height, caption FROM photo WHERE aid = "%s"', $album_id)
+			// 'query' => sprintf('SELECT pid, src_small, src_small_width, src_small_height, src_big, src_big_width, src_big_height, caption FROM photo WHERE aid = "%s"', $album_id)
+			'query' => sprintf('SELECT pid, src_small, src_small_width, src_small_height, caption, images FROM photo WHERE object_id IN (SELECT object_id FROM photo WHERE aid="%s")', $album_id)
 		));
 
 		foreach ($photos as &$photo)
@@ -111,9 +112,9 @@ class FacebookPhoto extends FacebookEntity
 	public function large()
 	{
 		return new FacebookImage(
-			$this->_data['src_big'],
-			$this->_data['src_big_width'],
-			$this->_data['src_big_height']);
+			$this->_data['images'][0]['source'],
+			$this->_data['images'][0]['width'],
+			$this->_data['images'][0]['height']);
 	}
 }
 
