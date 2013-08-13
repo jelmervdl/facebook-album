@@ -1,5 +1,7 @@
 body {
 	font: 12px/14px 'Helvetica Neue', Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 ol, figure {
@@ -11,6 +13,16 @@ ol, figure {
 .photo {
 	display: block;
 	float: left;
+	overflow: hidden;
+}
+
+.photo figure {
+	margin: 2px;
+}
+
+/*.photo {
+	display: block;
+	float: left;
 
 	width: 75px;
 	height: 50px;
@@ -19,7 +31,7 @@ ol, figure {
 	padding: 0;
 	
 	overflow: hidden;
-}
+}*/
 
 .photo figcaption {
 	display: none;

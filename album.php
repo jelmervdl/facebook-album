@@ -145,5 +145,7 @@ $photos = $album->listPhotos();
 				}
 			);
 		</script>
+		<script src="js/app.js"></script>
+		<script>app_init()</script>
 	</body>
 </html>
